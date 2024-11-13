@@ -74,9 +74,12 @@ _dns01cf_request() {
 
   # body  url [needbase64] [POST|PUT|DELETE] [ContentType]
   response="$(_post "$data" "${DNS01CF_URL}/dns01cf/${action}" "" "POST" "application/json")"
-  _debug2 response1 "$response"
-  response="$(_post "$data" "${DNS01CF_URL}/dns01cf/${action}" "" "POST" "application/json")"
-  _debug2 response2 "$response"
+  _debug2 response "$response"
+
+  # <-- DEBUG double add/delete
+  # response="$(_post "$data" "${DNS01CF_URL}/dns01cf/${action}" "" "POST" "application/json")"
+  # _debug2 response2 "$response"
+  # DEBUG double add/delete -->
 
   if _contains "$response" "\"ok\"" && _contains "$response" "\"$txtvalue\""; then
     _info "action ${action} success"
